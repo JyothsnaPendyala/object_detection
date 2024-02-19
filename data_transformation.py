@@ -1,5 +1,6 @@
 from datavisualization import visualise_image
 from torch.utils.data import Dataset
+from tqdm.auto import tqdm
 import os
 from xml.etree import ElementTree as ET
 import glob as glob
