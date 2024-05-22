@@ -97,6 +97,24 @@ def transform_data():
             label_fields=['labels'],
         ))
 
+    IMAGE_WIDTH = 640
+    img_size = 640
+    IMAGE_HEIGHT = 480
+    classes = ["background","smoke"]
+
+    train_dataset = CustomDataset(os.path.join(os.getcwd(),"object_detection_data/train/images"),os.path.join(os.getcwd(),"object_detection_data/train/annotations"),img_size, classes, get_train_transform(),use_train_aug=False, train=True, mosaic=1.0, square_training=False)
+    valid_dataset = CustomDataset(os.path.join(os.getcwd(),"object_detection_data/valid/images"),os.path.join(os.getcwd(),"object_detection_data/valid/annotations"),img_size, classes, get_valid_transform(),train=False, square_training=False)
+
+    i, a = train_dataset[0]
+    print("iiiiii:",i)
+    print("aaaaa:",a)
+    with open('train_dataset.pkl', 'wb') as f:
+        pickle.dump(train_dataset, f)
+    with open('valid_dataset.pkl', 'wb') as f:
+        pickle.dump(valid_dataset, f)
+
+    return train_dataset
+
 
 class CustomDataset(Dataset):
         def __init__(
@@ -409,22 +427,6 @@ class CustomDataset(Dataset):
     
 
 
-    IMAGE_WIDTH = 640
-    img_size = 640
-    IMAGE_HEIGHT = 480
-    classes = ["background","smoke"]
-
-    train_dataset = CustomDataset(os.path.join(os.getcwd(),"object_detection_data/train/images"),os.path.join(os.getcwd(),"object_detection_data/train/annotations"),img_size, classes, get_train_transform(),use_train_aug=False, train=True, mosaic=1.0, square_training=False)
-    valid_dataset = CustomDataset(os.path.join(os.getcwd(),"object_detection_data/valid/images"),os.path.join(os.getcwd(),"object_detection_data/valid/annotations"),img_size, classes, get_valid_transform(),train=False, square_training=False)
-
-    i, a = train_dataset[0]
-    print("iiiiii:",i)
-    print("aaaaa:",a)
-    with open('train_dataset.pkl', 'wb') as f:
-        pickle.dump(train_dataset, f)
-    with open('valid_dataset.pkl', 'wb') as f:
-        pickle.dump(valid_dataset, f)
-
-    return train_dataset
+    
 
 transform_data()
