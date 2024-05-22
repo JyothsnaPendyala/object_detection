@@ -1,6 +1,9 @@
 pipeline{
     agent any
-
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('jenkins-s3').getUsername()
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-s3').getPassword()
+    }
     stages{
         stage("Install Dependencies"){
             steps{
