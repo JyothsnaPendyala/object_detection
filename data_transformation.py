@@ -66,7 +66,7 @@ def transform_data():
             'label_fields': ['labels']
         })
 
-
+    global CustomDataset
     class CustomDataset(Dataset):
         def __init__(
             self, images_path, labels_path, 
