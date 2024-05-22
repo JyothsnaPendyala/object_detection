@@ -22,6 +22,7 @@ def open_random_images(path):
 def visualise_image():
     url = extract_data()
     url_response = requests.get(url)
+    print("--------:",url_response)
     with zipfile.ZipFile(BytesIO(url_response.content)) as z:
         z.extractall('.')
     images = open_random_images(os.path.join(os.getcwd(),"object_detection_data/train/images"))
